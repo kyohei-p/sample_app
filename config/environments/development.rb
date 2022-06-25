@@ -34,6 +34,9 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  host = 'fd6e33ea22044866b66bb679dfd41d68.vfs.cloud9.ap-northeast-1.amazonaws.com'
+  config.action_mailer.default_url_options = {host: host, protocol: 'https' }
+
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.

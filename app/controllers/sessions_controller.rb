@@ -6,10 +6,18 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user &.authenticate(params[:session][:password])
-      # ユーザーログイン後にユーザー情報のページにリダイレクトする
-      log_in @user
-      params[:session][:remember_me] == '1' ? remember(@user) :forget(@user)
-      redirect_back_or @user
+      if @user.activated?
+        log_in @user
+        #remember_meにチェックが入って入れば記憶トークン等を登録、チェックが無ければ記憶トークン等を削除
+        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        #覚えていたユーザーページへリダイレクトする
+        redirect_back_or @user
+      else
+        message = "Account not activated. "
+        message += "Check your email for the activation link."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
       flash[:danger] = 'Invalid email/password combination' # 本当は正しくない
       render 'new'
