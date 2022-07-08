@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'password_resets/new'
   get 'password_resets/edit'
   get 'sessions/new'
+  post '/microposts/destroy'
   root 'static_pages#home'
   get '/help',    to: 'static_pages#help'
   get '/about',   to: 'static_pages#about'
