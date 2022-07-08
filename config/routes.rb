@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   get '/signup',  to: 'users#new'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
+  #post '/microposts/:id/destroy',  to: 'microposts#destroy'
   delete '/logout',  to: 'sessions#destroy'
-  post '/microposts/:id/destroy',  to: 'microposts#destroy'
   resources :users do
     member do
       get :following, :followers
